@@ -4,18 +4,87 @@
 </head>
 <body>
 	<script type="text/javascript">
-		var theNum = 600851475143;//
+		var theNum = 600851475143;//600,851,475,143
 		var largest = 0;
 		var primes = [];
+		var nPrimes = [];
 		//console.log("Finding the largest prime factor of " + theNum);
 		var numHalf = Math.floor(theNum / 2);
-		for (var i = 1; i <= numHalf/6; i+=3)
+		var inc = [4, 2, 2, 2];
+		var limit = 30003;
+		var j = 0;
+		for (var i = 3; i <= limit; i+=inc[j])
 		{
+			// console.log("The number is: " + i);
+			if (isPrime(i, 2))
+			{
+				primes.push(i);
+				if (theNum % i == 0)
+				{
+					console.log(i + " x " + (theNum / i));
+					console.log("Multiplicant prime? " + isPrime(theNum/i, 2));
+					nPrimes.push(i);
+				}
+			}
 
+			j++;
+			if (j == 4)
+			{
+				j = 0;
+			}
 		}
-		console.log("done");
+		console.log(primes);
+		console.log(nPrimes);
+		// function printFacs(num, count)
+		// {
+		// 	if (count >= num / 2)
+		// 	{
+		// 		return;
+		// 	}
+		// 	else if (num % count == 0)
+		// 	{
+		// 		console.log("(" + count + ", " + (num/count) + ")");
+		// 		return printFacs(num, count + 1);
+		// 	}
+		// 	else 
+		// 	{
+		// 		return printFacs(num, count + 1);
+		// 	}
+		// }
+		function isPrime(num, count)
+		{
+			if (count >= num / 2)
+			{
+				return true;
+			}
+			else if (primeDiv(num, 0) || num % 2 == 0 || num % count == 0)
+			{
+				return false;
+			}
+			else
+			{
+				return isPrime(num, count + 1);
+			}
+		}
 
-		// function isPrime
+		function primeDiv(num, count)
+		{
+			if (count >= primes.length)
+			{
+				return false;
+			}
+			else
+			{
+				if (num % primes[count] == 0)
+				{
+					return true;
+				}
+				else
+				{
+					return primeDiv(num, count + 1);
+				}
+			}
+		}
 	</script>
 </body>
 </html>
